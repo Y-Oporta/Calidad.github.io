@@ -18,14 +18,17 @@
             color: #1e2e1c;
         }
 
+        /* Contenedor principal con bordes mas marcados */
         .form-container {
             max-width: 1400px;
             margin: 0 auto;
             background: #ffffff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border: 1px solid #cfdac6;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #b8c4ae;
+            border-radius: 8px;
         }
 
+        /* Encabezado con borde inferior mas definido */
         .doc-header {
             background: #1a3a24;
             color: white;
@@ -35,7 +38,8 @@
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
-            border-bottom: 2px solid #c2a256;
+            border-bottom: 3px solid #c2a256;
+            border-radius: 8px 8px 0 0;
         }
 
         .codigo-version {
@@ -43,6 +47,8 @@
             font-size: 0.85rem;
             background: #0a2a16;
             padding: 0.2rem 1rem;
+            border-radius: 4px;
+            border: 1px solid #2d5a3a;
         }
 
         .fechas-doc {
@@ -51,6 +57,7 @@
             font-size: 0.75rem;
             background: #2d5738b3;
             padding: 0.2rem 1rem;
+            border-radius: 4px;
         }
 
         .titulo-principal {
@@ -58,13 +65,15 @@
             font-weight: 600;
             background: #00000020;
             padding: 0.2rem 1rem;
+            border-radius: 4px;
         }
 
+        /* Barra de rangos con bordes */
         .rangos-bar {
             background: #f8f5ea;
             padding: 0.6rem 2rem;
-            border-bottom: 1px solid #e0d9c6;
-            overflow-x: auto;
+            border-bottom: 1px solid #d4cfbc;
+            border-top: 1px solid #e8e2d0;
         }
 
         .rangos-grid {
@@ -80,6 +89,10 @@
             padding: 0.2rem 0.8rem;
             border-left: 3px solid #c2a256;
             border-bottom: 1px solid #ece3d0;
+            border-right: 1px solid #e8e0cc;
+            border-top: 1px solid #f5f0e4;
+            border-radius: 6px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
 
         .rango-item span:first-child {
@@ -88,6 +101,7 @@
             display: block;
         }
 
+        /* Formulario */
         form {
             padding: 1.8rem 2rem 1.2rem 2rem;
         }
@@ -109,27 +123,34 @@
             font-weight: 700;
             color: #1a3a24;
             font-size: 0.8rem;
+            letter-spacing: 0.3px;
         }
 
         input, select, textarea {
             padding: 0.6rem 0.8rem;
-            border: 1px solid #cbdcc0;
+            border: 1px solid #bccbb0;
             background: #fefef8;
             font-size: 0.9rem;
             font-family: inherit;
+            border-radius: 6px;
+            transition: all 0.2s ease;
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #9eaf91;
+            border-color: #8aa07c;
             background: #fff;
+            box-shadow: 0 0 0 2px rgba(138, 160, 124, 0.2);
         }
 
+        /* Seccion rangos con bordes redondeados */
         .rangos-section {
             background: #fafcf7;
-            border: 1px solid #e2e9da;
+            border: 1px solid #d4e0ca;
+            border-radius: 10px;
             padding: 1rem 1.5rem;
             margin: 1rem 0 1.5rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
 
         .rangos-title {
@@ -150,8 +171,16 @@
 
         .criterio-card {
             background: white;
-            border: 1px solid #e2ebd9;
+            border: 1px solid #dee9d4;
+            border-radius: 8px;
             padding: 0.7rem;
+            transition: box-shadow 0.1s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .criterio-card:hover {
+            border-color: #c2d2b4;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .criterio-card label {
@@ -164,6 +193,7 @@
 
         select {
             width: 100%;
+            border-radius: 6px;
         }
 
         .puntaje-asociado {
@@ -173,12 +203,14 @@
             padding: 0.1rem 0.5rem;
             margin-top: 5px;
             color: #2c5a2a;
+            border-radius: 12px;
         }
 
         .observaciones {
             grid-column: 1 / -1;
         }
 
+        /* Botones con bordes */
         .acciones {
             display: flex;
             flex-wrap: wrap;
@@ -191,27 +223,39 @@
 
         button {
             padding: 0.6rem 1.5rem;
-            border: none;
+            border: 1px solid #c2cfb6;
             background: #eef2e6;
             font-weight: 600;
             font-size: 0.8rem;
             cursor: pointer;
-            transition: 0.1s linear;
+            transition: all 0.2s;
+            border-radius: 8px;
+            font-family: inherit;
         }
 
         button.primary {
             background: #1a3a24;
             color: white;
+            border-color: #0f2a1a;
         }
 
         button.primary:hover {
             background: #0f2a1c;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        button.secondary {
+            background: #f4f7ef;
+            border-color: #cbdcc0;
         }
 
         button.secondary:hover {
-            background: #e0e5d6;
+            background: #e8ede0;
+            transform: translateY(-1px);
         }
 
+        /* Tabla con bordes */
         .bitacora-preview {
             margin: 0 1.8rem 1.8rem 1.8rem;
             border-top: 1px solid #dee6d6;
@@ -223,12 +267,14 @@
             font-weight: 700;
             margin-bottom: 0.8rem;
             color: #1a3a24;
+            padding-left: 4px;
         }
 
         .tabla-bitacora {
             overflow-x: auto;
-            border: 1px solid #dce5d2;
+            border: 1px solid #ced9c2;
             background: white;
+            border-radius: 8px;
         }
 
         table {
@@ -243,14 +289,24 @@
             text-align: center;
             font-weight: 700;
             color: #1f4f2b;
-            border-bottom: 1px solid #d0dec2;
+            border-bottom: 2px solid #d0dec2;
+            border-right: 1px solid #dee8d4;
+        }
+
+        th:last-child {
+            border-right: none;
         }
 
         td {
             padding: 0.5rem 0.2rem;
             text-align: center;
             border-bottom: 1px solid #e9f0e2;
+            border-right: 1px solid #ecf3e4;
             vertical-align: middle;
+        }
+
+        td:last-child {
+            border-right: none;
         }
 
         .empty-row td {
@@ -260,14 +316,18 @@
 
         .btn-eliminar {
             background: none;
-            border: none;
+            border: 1px solid #e0cfc4;
             font-size: 1rem;
             cursor: pointer;
             color: #9b6e5a;
             font-weight: bold;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
         }
 
         .btn-eliminar:hover {
+            background: #f5e8e2;
+            border-color: #b98f7a;
             color: #b33a1c;
         }
 
@@ -278,28 +338,31 @@
             font-size: 0.65rem;
             color: #5a7352;
             border-top: 1px solid #e0ecd5;
-        }
-
-        .badge-id {
-            font-family: monospace;
-            font-weight: bold;
-            background: #ecebd6;
-            padding: 0.1rem 0.3rem;
+            border-radius: 0 0 8px 8px;
         }
 
         .ayuda-texto {
             font-size: 0.65rem;
             color: #6a7a60;
+            margin-top: 2px;
         }
 
         .texto-derecha {
             font-size: 0.6rem;
             text-align: right;
             margin-top: 4px;
+            color: #6e5c3a;
         }
 
-        .mb-1 {
+        /* Badge para lote activo */
+        .lote-activo-info {
+            background: #eef2e0;
+            padding: 0.3rem 1rem;
             margin-bottom: 1rem;
+            font-size: 0.75rem;
+            display: inline-block;
+            border-left: 3px solid #c2a256;
+            border-radius: 6px;
         }
     </style>
 </head>
@@ -436,35 +499,34 @@
         </div>
 
         <div class="acciones">
-            <button type="button" id="btnNuevoLote" class="primary">+ NUEVO LOTE (nuevo ID)</button>
-            <button type="button" id="btnMismoLote" class="secondary">+ AGREGAR AL MISMO LOTE</button>
+            <button type="button" id="btnGuardarRegistro" class="primary">+ GUARDAR EVALUACION</button>
             <button type="button" id="limpiarBtn" class="secondary">LIMPIAR FORMULARIO</button>
         </div>
     </form>
 
     <div class="bitacora-preview">
-        <h3>REGISTROS DE EVALUACION POR ID DE CARGA</h3>
+        <h3>REGISTROS DE EVALUACION POR LOTE</h3>
         <div class="tabla-bitacora">
             <table id="tablaBitacora">
                 <thead>
                     <tr>
-                        <th>ID LOTE</th><th>COD TRABAJADOR</th><th>FECHA</th><th>ZONA</th><th>SECTOR</th><th>LOTE</th><th>AÑO</th><th>ACTIVIDAD</th>
+                        <th>COD TRABAJADOR</th><th>FECHA</th><th>ZONA</th><th>SECTOR</th><th>LOTE</th><th>AÑO</th><th>ACTIVIDAD</th>
                         <th>COMAL</th><th>CAJON</th><th>CARRIL</th><th>BORDE</th><th>DRENAJE</th><th>APILES</th>
                         <th>TOTAL</th><th>OBSERVACION</th><th></th>
                     </tr>
                 </thead>
                 <tbody id="bitacoraBody">
-                    <tr class="empty-row"><td colspan="17">No hay evaluaciones. Complete el formulario y guarde.</td></tr>
+                    <tr class="empty-row"><td colspan="16">No hay evaluaciones. Complete el formulario y guarde.</td></tr>
                 </tbody>
             </table>
         </div>
         <div style="display: flex; justify-content: flex-end; margin-top: 12px; gap: 12px;">
             <button type="button" id="exportarCSV" class="secondary">EXPORTAR CSV</button>
-            <button type="button" id="borrarTodo" class="secondary" style="background:#f5e8e2; color:#8b4632;">BORRAR TODOS</button>
+            <button type="button" id="borrarTodo" class="secondary" style="background:#f5e8e2; color:#8b4632; border-color:#ddc7bc;">BORRAR TODOS</button>
         </div>
     </div>
     <footer>
-        Sistema OLEO CC FO 05 - Cada grupo de registros comparte el mismo ID. La observación solo aparece en la primera fila del lote.
+        Sistema OLEO CC FO 05 - Cada grupo de registros comparte el mismo ID de lote. La observación solo aparece en la primera fila del lote.
     </footer>
 </div>
 
@@ -472,7 +534,7 @@
     let todosRegistros = [];
 
     function cargarStorage() {
-        const stored = localStorage.getItem('bitacoraMantenimientoLotesV6');
+        const stored = localStorage.getItem('bitacoraMantenimientoLotesV8');
         if(stored) {
             try {
                 todosRegistros = JSON.parse(stored);
@@ -484,7 +546,7 @@
     }
 
     function guardarStorage() {
-        localStorage.setItem('bitacoraMantenimientoLotesV6', JSON.stringify(todosRegistros));
+        localStorage.setItem('bitacoraMantenimientoLotesV8', JSON.stringify(todosRegistros));
     }
 
     function obtenerPuntajeSelect(selectId) {
@@ -625,7 +687,7 @@
         const tbody = document.getElementById('bitacoraBody');
         if(!tbody) return;
         if(todosRegistros.length === 0) {
-            tbody.innerHTML = '<tr class="empty-row"><td colspan="17">No hay evaluaciones registradas. Complete el formulario y guarde.</td></tr>';
+            tbody.innerHTML = '<tr class="empty-row"><td colspan="16">No hay evaluaciones registradas. Complete el formulario y guarde.</td></tr>';
             return;
         }
         let html = '';
@@ -633,7 +695,6 @@
             const r = todosRegistros[i];
             const observacionMostrar = (r.esPrimerRegistro === true) ? (r.observacionLote || '') : '---';
             html += `<tr>
-                        <td class="badge-id">${escapeHtml(r.idLote)}</td>
                         <td>${escapeHtml(r.codTrabajador)}</td>
                         <td>${escapeHtml(r.fecha)}</td>
                         <td>${escapeHtml(r.zona)}</td>
@@ -680,38 +741,19 @@
         });
     }
 
-    document.getElementById('btnNuevoLote').addEventListener('click', () => {
+    // Logica de guardado: cada vez que se guarda, se genera un nuevo lote (nuevo ID)
+    document.getElementById('btnGuardarRegistro').addEventListener('click', () => {
         const codTrab = document.getElementById('codigoTrabajador').value.trim();
         if(!codTrab) {
-            alert("Ingrese el CODIGO TRABAJADOR antes de crear un nuevo lote.");
+            alert("Ingrese el CODIGO TRABAJADOR antes de guardar.");
             return;
         }
         const observacionesTexto = document.getElementById('observaciones').value.trim();
         const nuevoId = obtenerNuevoIdLote();
         const success = guardarRegistro(nuevoId, true, observacionesTexto);
         if(success) {
-            alert(`Nuevo lote creado con ID: ${nuevoId}. Observación guardada en la primera fila.`);
+            alert(`Registro guardado correctamente. Observación registrada en la primera fila del lote.`);
             resetFormulario(true);
-            document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
-        }
-    });
-
-    document.getElementById('btnMismoLote').addEventListener('click', () => {
-        const codTrab = document.getElementById('codigoTrabajador').value.trim();
-        if(!codTrab) {
-            alert("Ingrese el CODIGO TRABAJADOR para agregar al mismo lote.");
-            return;
-        }
-        const ultimoLote = obtenerUltimoLotePorTrabajador(codTrab);
-        if(!ultimoLote) {
-            alert(`No existe un lote previo para el trabajador ${codTrab}. Primero cree un nuevo lote con el boton "NUEVO LOTE".`);
-            return;
-        }
-        const success = guardarRegistro(ultimoLote, false, "");
-        if(success) {
-            alert(`Registro agregado al lote existente: ${ultimoLote} (sin observación nueva).`);
-            resetFormulario(false);
-            document.getElementById('codigoTrabajador').value = codTrab;
             document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
         }
     });
@@ -726,12 +768,12 @@
             alert("No hay registros para exportar.");
             return;
         }
-        let csvRows = [["ID_LOTE","COD_TRABAJADOR","FECHA","ZONA","SECTOR","LOTE","AÑO_SIEMBRA","ACTIVIDAD",
+        let csvRows = [["COD_TRABAJADOR","FECHA","ZONA","SECTOR","LOTE","AÑO_SIEMBRA","ACTIVIDAD",
                         "PUNT_COMAL","PUNT_CAJON","PUNT_CARRIL","PUNT_BORDE","PUNT_DRENAJE","PUNT_APILES","PUNTAJE_TOTAL","OBSERVACION"]];
         for(let r of todosRegistros) {
             let obsMostrar = (r.esPrimerRegistro === true) ? (r.observacionLote || '') : '';
             csvRows.push([
-                r.idLote, r.codTrabajador, r.fecha, r.zona, r.sector, r.lote, r.anioSiembra, r.actividad,
+                r.codTrabajador, r.fecha, r.zona, r.sector, r.lote, r.anioSiembra, r.actividad,
                 r.puntajeComal, r.puntajeCajon, r.puntajeCarril, r.puntajeBorde, r.puntajeDrenaje, r.puntajeApiles,
                 r.puntajeTotal, obsMostrar
             ]);
