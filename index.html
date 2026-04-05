@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLEO CC FO 05 | Evaluación de Mantenimiento</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e2e6de;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1e2e1c;
+        }
+
+        .form-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #cfdac6;
+        }
+
+        .doc-header {
+            background: #1a3a24;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 2px solid #c2a256;
+        }
+
+        .codigo-version {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            background: #0a2a16;
+            padding: 0.2rem 1rem;
+        }
+
+        .fechas-doc {
+            display: flex;
+            gap: 1.2rem;
+            font-size: 0.75rem;
+            background: #2d5738b3;
+            padding: 0.2rem 1rem;
+        }
+
+        .titulo-principal {
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: #00000020;
+            padding: 0.2rem 1rem;
+        }
+
+        .rangos-bar {
+            background: #f8f5ea;
+            padding: 0.6rem 2rem;
+            border-bottom: 1px solid #e0d9c6;
+            overflow-x: auto;
+        }
+
+        .rangos-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: space-between;
+            font-size: 0.7rem;
+        }
+
+        .rango-item {
+            background: white;
+            padding: 0.2rem 0.8rem;
+            border-left: 3px solid #c2a256;
+            border-bottom: 1px solid #ece3d0;
+        }
+
+        .rango-item span:first-child {
+            font-weight: 700;
+            color: #2c5a2a;
+            display: block;
+        }
+
+        form {
+            padding: 1.8rem 2rem 1.2rem 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .campo label {
+            font-weight: 700;
+            color: #1a3a24;
+            font-size: 0.8rem;
+        }
+
+        input, select, textarea {
+            padding: 0.6rem 0.8rem;
+            border: 1px solid #cbdcc0;
+            background: #fefef8;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #9eaf91;
+            background: #fff;
+        }
+
+        .rangos-section {
+            background: #fafcf7;
+            border: 1px solid #e2e9da;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0 1.5rem 0;
+        }
+
+        .rangos-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            color: #1a3a24;
+            border-left: 4px solid #c2a256;
+            padding-left: 12px;
+            text-transform: uppercase;
+        }
+
+        .rangos-criterios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 1rem;
+        }
+
+        .criterio-card {
+            background: white;
+            border: 1px solid #e2ebd9;
+            padding: 0.7rem;
+        }
+
+        .criterio-card label {
+            font-weight: 800;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.75rem;
+            color: #1a4a2a;
+        }
+
+        select {
+            width: 100%;
+        }
+
+        .puntaje-asociado {
+            font-size: 0.65rem;
+            background: #f0f3e8;
+            display: inline-block;
+            padding: 0.1rem 0.5rem;
+            margin-top: 5px;
+            color: #2c5a2a;
+        }
+
+        .observaciones {
+            grid-column: 1 / -1;
+        }
+
+        .acciones {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.2rem;
+            border-top: 1px solid #dee6d6;
+            padding-top: 1.2rem;
+        }
+
+        button {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            background: #eef2e6;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.1s linear;
+        }
+
+        button.primary {
+            background: #1a3a24;
+            color: white;
+        }
+
+        button.primary:hover {
+            background: #0f2a1c;
+        }
+
+        button.secondary:hover {
+            background: #e0e5d6;
+        }
+
+        .bitacora-preview {
+            margin: 0 1.8rem 1.8rem 1.8rem;
+            border-top: 1px solid #dee6d6;
+            padding-top: 1.2rem;
+        }
+
+        .bitacora-preview h3 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: #1a3a24;
+        }
+
+        .tabla-bitacora {
+            overflow-x: auto;
+            border: 1px solid #dce5d2;
+            background: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.7rem;
+        }
+
+        th {
+            background: #eef2e6;
+            padding: 0.6rem 0.3rem;
+            text-align: center;
+            font-weight: 700;
+            color: #1f4f2b;
+            border-bottom: 1px solid #d0dec2;
+        }
+
+        td {
+            padding: 0.5rem 0.2rem;
+            text-align: center;
+            border-bottom: 1px solid #e9f0e2;
+            vertical-align: middle;
+        }
+
+        .empty-row td {
+            color: #9bae8a;
+            text-align: center;
+        }
+
+        .btn-eliminar {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #9b6e5a;
+            font-weight: bold;
+        }
+
+        .btn-eliminar:hover {
+            color: #b33a1c;
+        }
+
+        footer {
+            background: #f4f7ef;
+            text-align: center;
+            padding: 0.6rem;
+            font-size: 0.65rem;
+            color: #5a7352;
+            border-top: 1px solid #e0ecd5;
+        }
+
+        .badge-id {
+            font-family: monospace;
+            font-weight: bold;
+            background: #ecebd6;
+            padding: 0.1rem 0.3rem;
+        }
+
+        .ayuda-texto {
+            font-size: 0.65rem;
+            color: #6a7a60;
+        }
+
+        .texto-derecha {
+            font-size: 0.6rem;
+            text-align: right;
+            margin-top: 4px;
+        }
+
+        .mb-1 {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <div class="doc-header">
+        <div>
+            <div class="codigo-version">OLEO CC FO 05 | Version 6</div>
+            <div style="font-size: 0.7rem; margin-top: 2px;">Revisado: 05/01/2026 | Aprobado: 13/01/2026</div>
+        </div>
+        <div class="titulo-principal">BITACORA DE EVALUACION DE MANTENIMIENTO</div>
+        <div class="fechas-doc">
+            <span>Desde: 13/01/2026</span>
+            <span>Pagina 1 de 1</span>
+        </div>
+    </div>
+
+    <div class="rangos-bar">
+        <div class="rangos-grid">
+            <div class="rango-item"><span>COMAL</span> &lt;20cm / 20-30cm / &gt;30cm</div>
+            <div class="rango-item"><span>CAJON</span> &lt;30cm / 30-50cm / &gt;50cm</div>
+            <div class="rango-item"><span>CARRIL</span> &lt;30cm / 30-50cm / &gt;50cm</div>
+            <div class="rango-item"><span>BORDE</span> &gt;5m / &lt;5m</div>
+            <div class="rango-item"><span>DRENAJE</span> &lt;30cm / 30-50cm / &gt;50cm</div>
+            <div class="rango-item"><span>APILES</span> &lt;30cm / 30-50cm / &gt;50cm</div>
+        </div>
+        <div class="texto-derecha">Puntaje: 100 / 50 / 0 segun rango</div>
+    </div>
+
+    <form id="evaluacionForm">
+        <div class="form-grid">
+            <div class="campo">
+                <label for="fecha">FECHA</label>
+                <input type="date" id="fecha" name="fecha" required>
+            </div>
+            <div class="campo">
+                <label for="codigoTrabajador">CODIGO TRABAJADOR</label>
+                <input type="text" id="codigoTrabajador" name="codigoTrabajador" placeholder="Ej: TR-0824" required>
+                <div class="ayuda-texto">Identificador del operario / evaluador</div>
+            </div>
+            <div class="campo">
+                <label for="zona">ZONA</label>
+                <input type="text" id="zona" name="zona" placeholder="Zona Norte" required>
+            </div>
+            <div class="campo">
+                <label for="sector">SECTOR</label>
+                <input type="text" id="sector" name="sector" placeholder="Sector 3" required>
+            </div>
+            <div class="campo">
+                <label for="lote">LOTE</label>
+                <input type="text" id="lote" name="lote" placeholder="Lote 12" required>
+            </div>
+            <div class="campo">
+                <label for="anioSiembra">AÑO DE SIEMBRA</label>
+                <input type="text" id="anioSiembra" name="anioSiembra" placeholder="2024" required>
+            </div>
+            <div class="campo">
+                <label for="actividad">ACTIVIDAD EVALUADA</label>
+                <input type="text" id="actividad" name="actividad" placeholder="Mantenimiento / poda" required>
+            </div>
+        </div>
+
+        <div class="rangos-section">
+            <div class="rangos-title">CRITERIOS DE MANTENIMIENTO (seleccione rango)</div>
+            <div class="rangos-criterios">
+                <div class="criterio-card">
+                    <label for="rangoComal">RANGO COMAL</label>
+                    <select id="rangoComal" name="rangoComal" title="Seleccione el rango de medicion para Comal" required>
+                        <option value="">-- Seleccionar --</option>
+                        <option value="< 20 CM" data-puntaje="100">&lt; 20 CM → 100</option>
+                        <option value="+ 20 Y 30 CM" data-puntaje="50">+ 20 Y 30 CM → 50</option>
+                        <option value="> 30 CM" data-puntaje="0">&gt; 30 CM → 0</option>
+                    </select>
+                    <span class="puntaje-asociado" id="puntajeComalText">-</span>
+                </div>
+                <div class="criterio-card">
+                    <label for="rangoCajon">RANGO CAJON</label>
+                    <select id="rangoCajon" name="rangoCajon" title="Seleccione el rango de medicion para Cajon" required>
+                        <option value="">-- Seleccionar --</option>
+                        <option value="< 30 CM" data-puntaje="100">&lt; 30 CM → 100</option>
+                        <option value="+ 30 Y 50 CM" data-puntaje="50">+ 30 Y 50 CM → 50</option>
+                        <option value="> 50 CM" data-puntaje="0">&gt; 50 CM → 0</option>
+                    </select>
+                    <span class="puntaje-asociado" id="puntajeCajonText">-</span>
+                </div>
+                <div class="criterio-card">
+                    <label for="rangoCarril">RANGO CARRIL</label>
+                    <select id="rangoCarril" name="rangoCarril" title="Seleccione el rango de medicion para Carril" required>
+                        <option value="">-- Seleccionar --</option>
+                        <option value="< 30 CM" data-puntaje="100">&lt; 30 CM → 100</option>
+                        <option value="+ 30 Y 50 CM" data-puntaje="50">+ 30 Y 50 CM → 50</option>
+                        <option value="> 50 CM" data-puntaje="0">&gt; 50 CM → 0</option>
+                    </select>
+                    <span class="puntaje-asociado" id="puntajeCarrilText">-</span>
+                </div>
+                <div class="criterio-card">
+                    <label for="rangoBorde">RANGO BORDE</label>
+                    <select id="rangoBorde" name="rangoBorde" title="Seleccione el rango de medicion para Borde" required>
+                        <option value="">-- Seleccionar --</option>
+                        <option value="> 5 M" data-puntaje="100">&gt; 5 M → 100</option>
+                        <option value="< 5 M" data-puntaje="0">&lt; 5 M → 0</option>
+                    </select>
+                    <span class="puntaje-asociado" id="puntajeBordeText">-</span>
+                </div>
+                <div class="criterio-card">
+                    <label for="rangoDrenaje">RANGO DRENAJE</label>
+                    <select id="rangoDrenaje" name="rangoDrenaje" title="Seleccione el rango de medicion para Drenaje" required>
+                        <option value="">-- Seleccionar --</option>
+                        <option value="< 30 CM" data-puntaje="100">&lt; 30 CM → 100</option>
+                        <option value="+ 30 Y 50 CM" data-puntaje="50">+ 30 Y 50 CM → 50</option>
+                        <option value="> 50 CM" data-puntaje="0">&gt; 50 CM → 0</option>
+                    </select>
+                    <span class="puntaje-asociado" id="puntajeDrenajeText">-</span>
+                </div>
+                <div class="criterio-card">
+                    <label for="rangoApiles">RANGO APILES</label>
+                    <select id="rangoApiles" name="rangoApiles" title="Seleccione el rango de medicion para Apiles" required>
+                        <option value="">-- Seleccionar --</option>
+                        <option value="< 30 CM" data-puntaje="100">&lt; 30 CM → 100</option>
+                        <option value="+ 30 Y 50 CM" data-puntaje="50">+ 30 Y 50 CM → 50</option>
+                        <option value="> 50 CM" data-puntaje="0">&gt; 50 CM → 0</option>
+                    </select>
+                    <span class="puntaje-asociado" id="puntajeApilesText">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-grid">
+            <div class="campo observaciones">
+                <label for="observaciones">OBSERVACIONES (aplica solo a la primera fila del lote)</label>
+                <textarea id="observaciones" name="observaciones" rows="2" placeholder="Observaciones generales del lote de evaluaciones (se guarda solo en el primer registro del ID)"></textarea>
+                <div class="ayuda-texto">La observación se almacena únicamente para el primer registro de cada ID de lote</div>
+            </div>
+        </div>
+
+        <div class="acciones">
+            <button type="button" id="btnNuevoLote" class="primary">+ NUEVO LOTE (nuevo ID)</button>
+            <button type="button" id="btnMismoLote" class="secondary">+ AGREGAR AL MISMO LOTE</button>
+            <button type="button" id="limpiarBtn" class="secondary">LIMPIAR FORMULARIO</button>
+        </div>
+    </form>
+
+    <div class="bitacora-preview">
+        <h3>REGISTROS DE EVALUACION POR ID DE CARGA</h3>
+        <div class="tabla-bitacora">
+            <table id="tablaBitacora">
+                <thead>
+                    <tr>
+                        <th>ID LOTE</th><th>COD TRABAJADOR</th><th>FECHA</th><th>ZONA</th><th>SECTOR</th><th>LOTE</th><th>AÑO</th><th>ACTIVIDAD</th>
+                        <th>COMAL</th><th>CAJON</th><th>CARRIL</th><th>BORDE</th><th>DRENAJE</th><th>APILES</th>
+                        <th>TOTAL</th><th>OBSERVACION</th><th></th>
+                    </tr>
+                </thead>
+                <tbody id="bitacoraBody">
+                    <tr class="empty-row"><td colspan="17">No hay evaluaciones. Complete el formulario y guarde.</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="display: flex; justify-content: flex-end; margin-top: 12px; gap: 12px;">
+            <button type="button" id="exportarCSV" class="secondary">EXPORTAR CSV</button>
+            <button type="button" id="borrarTodo" class="secondary" style="background:#f5e8e2; color:#8b4632;">BORRAR TODOS</button>
+        </div>
+    </div>
+    <footer>
+        Sistema OLEO CC FO 05 - Cada grupo de registros comparte el mismo ID. La observación solo aparece en la primera fila del lote.
+    </footer>
+</div>
+
+<script>
+    let todosRegistros = [];
+
+    function cargarStorage() {
+        const stored = localStorage.getItem('bitacoraMantenimientoLotesV6');
+        if(stored) {
+            try {
+                todosRegistros = JSON.parse(stored);
+            } catch(e) { todosRegistros = []; }
+        } else {
+            todosRegistros = [];
+        }
+        renderizarTabla();
+    }
+
+    function guardarStorage() {
+        localStorage.setItem('bitacoraMantenimientoLotesV6', JSON.stringify(todosRegistros));
+    }
+
+    function obtenerPuntajeSelect(selectId) {
+        const sel = document.getElementById(selectId);
+        if(!sel || !sel.value) return null;
+        const opt = sel.options[sel.selectedIndex];
+        if(opt && opt.dataset && opt.dataset.puntaje !== undefined) return parseInt(opt.dataset.puntaje, 10);
+        return null;
+    }
+
+    function actualizarPuntajeVisual(selectId, spanId) {
+        const sel = document.getElementById(selectId);
+        const span = document.getElementById(spanId);
+        if(!sel || !span) return;
+        const opt = sel.options[sel.selectedIndex];
+        let punt = null;
+        if(opt && opt.dataset && opt.dataset.puntaje !== undefined) punt = opt.dataset.puntaje;
+        if(punt !== null && sel.value !== "") span.innerText = `Puntaje: ${punt}`;
+        else span.innerText = "-";
+    }
+
+    function bindPuntajes() {
+        const ids = ['rangoComal','rangoCajon','rangoCarril','rangoBorde','rangoDrenaje','rangoApiles'];
+        const spans = ['puntajeComalText','puntajeCajonText','puntajeCarrilText','puntajeBordeText','puntajeDrenajeText','puntajeApilesText'];
+        ids.forEach((id, i) => {
+            const el = document.getElementById(id);
+            if(el) {
+                el.removeEventListener('change', () => {});
+                el.addEventListener('change', () => actualizarPuntajeVisual(id, spans[i]));
+                actualizarPuntajeVisual(id, spans[i]);
+            }
+        });
+    }
+
+    function obtenerNuevoIdLote() {
+        let maxNum = 0;
+        for(let reg of todosRegistros) {
+            let partes = reg.idLote.split('-');
+            if(partes.length === 2) {
+                let num = parseInt(partes[1], 10);
+                if(!isNaN(num) && num > maxNum) maxNum = num;
+            }
+        }
+        let next = maxNum + 1;
+        return "MANT-" + String(next).padStart(4, '0');
+    }
+
+    function obtenerUltimoLotePorTrabajador(codigo) {
+        for(let i = todosRegistros.length - 1; i >= 0; i--) {
+            if(todosRegistros[i].codTrabajador === codigo) {
+                return todosRegistros[i].idLote;
+            }
+        }
+        return null;
+    }
+
+    function guardarRegistro(idLote, esPrimerRegistro, observacionLote) {
+        const fechaRaw = document.getElementById('fecha').value;
+        const codTrabajador = document.getElementById('codigoTrabajador').value.trim();
+        const zona = document.getElementById('zona').value.trim();
+        const sector = document.getElementById('sector').value.trim();
+        const loteCampo = document.getElementById('lote').value.trim();
+        const anioSiembra = document.getElementById('anioSiembra').value.trim();
+        const actividad = document.getElementById('actividad').value.trim();
+
+        if(!fechaRaw || !codTrabajador || !zona || !sector || !loteCampo || !anioSiembra || !actividad) {
+            alert("Error: Complete todos los campos (FECHA, CODIGO TRABAJADOR, ZONA, SECTOR, LOTE, AÑO SIEMBRA, ACTIVIDAD).");
+            return false;
+        }
+
+        const pComal = obtenerPuntajeSelect('rangoComal');
+        const pCajon = obtenerPuntajeSelect('rangoCajon');
+        const pCarril = obtenerPuntajeSelect('rangoCarril');
+        const pBorde = obtenerPuntajeSelect('rangoBorde');
+        const pDrenaje = obtenerPuntajeSelect('rangoDrenaje');
+        const pApiles = obtenerPuntajeSelect('rangoApiles');
+
+        if(pComal === null || pCajon === null || pCarril === null || pBorde === null || pDrenaje === null || pApiles === null) {
+            alert("Seleccione un valor para cada uno de los 6 criterios de mantenimiento.");
+            return false;
+        }
+
+        const puntajeTotal = pComal + pCajon + pCarril + pBorde + pDrenaje + pApiles;
+
+        let fechaMostrar = fechaRaw;
+        if(fechaRaw) {
+            const partes = fechaRaw.split('-');
+            if(partes.length === 3) fechaMostrar = `${partes[2]}/${partes[1]}/${partes[0]}`;
+        }
+
+        const nuevoRegistro = {
+            idLote: idLote,
+            codTrabajador: codTrabajador,
+            fecha: fechaMostrar,
+            zona: zona,
+            sector: sector,
+            lote: loteCampo,
+            anioSiembra: anioSiembra,
+            actividad: actividad,
+            puntajeComal: pComal,
+            puntajeCajon: pCajon,
+            puntajeCarril: pCarril,
+            puntajeBorde: pBorde,
+            puntajeDrenaje: pDrenaje,
+            puntajeApiles: pApiles,
+            puntajeTotal: puntajeTotal,
+            observacionLote: (esPrimerRegistro ? observacionLote : ""),
+            esPrimerRegistro: esPrimerRegistro
+        };
+
+        todosRegistros.push(nuevoRegistro);
+        guardarStorage();
+        renderizarTabla();
+        return true;
+    }
+
+    function resetFormulario(limpiarObservaciones = true) {
+        document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
+        document.getElementById('codigoTrabajador').value = "";
+        document.getElementById('zona').value = "";
+        document.getElementById('sector').value = "";
+        document.getElementById('lote').value = "";
+        document.getElementById('anioSiembra').value = "";
+        document.getElementById('actividad').value = "";
+        document.getElementById('rangoComal').value = "";
+        document.getElementById('rangoCajon').value = "";
+        document.getElementById('rangoCarril').value = "";
+        document.getElementById('rangoBorde').value = "";
+        document.getElementById('rangoDrenaje').value = "";
+        document.getElementById('rangoApiles').value = "";
+        if(limpiarObservaciones) {
+            document.getElementById('observaciones').value = "";
+        }
+        bindPuntajes();
+    }
+
+    function renderizarTabla() {
+        const tbody = document.getElementById('bitacoraBody');
+        if(!tbody) return;
+        if(todosRegistros.length === 0) {
+            tbody.innerHTML = '<tr class="empty-row"><td colspan="17">No hay evaluaciones registradas. Complete el formulario y guarde.</td></tr>';
+            return;
+        }
+        let html = '';
+        for(let i = 0; i < todosRegistros.length; i++) {
+            const r = todosRegistros[i];
+            const observacionMostrar = (r.esPrimerRegistro === true) ? (r.observacionLote || '') : '---';
+            html += `<tr>
+                        <td class="badge-id">${escapeHtml(r.idLote)}</td>
+                        <td>${escapeHtml(r.codTrabajador)}</td>
+                        <td>${escapeHtml(r.fecha)}</td>
+                        <td>${escapeHtml(r.zona)}</td>
+                        <td>${escapeHtml(r.sector)}</td>
+                        <td>${escapeHtml(r.lote)}</td>
+                        <td>${escapeHtml(r.anioSiembra)}</td>
+                        <td>${escapeHtml(r.actividad)}</td>
+                        <td><strong>${r.puntajeComal}</strong></td>
+                        <td><strong>${r.puntajeCajon}</strong></td>
+                        <td><strong>${r.puntajeCarril}</strong></td>
+                        <td><strong>${r.puntajeBorde}</strong></td>
+                        <td><strong>${r.puntajeDrenaje}</strong></td>
+                        <td><strong>${r.puntajeApiles}</strong></td>
+                        <td><strong>${r.puntajeTotal}</strong></td>
+                        <td style="max-width:150px; white-space:normal;">${escapeHtml(observacionMostrar)}</td>
+                        <td><button class="btn-eliminar" data-index="${i}" title="Eliminar registro">X</button></td>
+                    </tr>`;
+        }
+        tbody.innerHTML = html;
+        document.querySelectorAll('.btn-eliminar').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = parseInt(btn.getAttribute('data-index'), 10);
+                if(!isNaN(idx)) eliminarRegistro(idx);
+            });
+        });
+    }
+
+    function eliminarRegistro(index) {
+        if(index >= 0 && index < todosRegistros.length) {
+            const idAEliminar = todosRegistros[index].idLote;
+            todosRegistros = todosRegistros.filter(r => r.idLote !== idAEliminar);
+            guardarStorage();
+            renderizarTabla();
+        }
+    }
+
+    function escapeHtml(str) {
+        if(!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if(m === '&') return '&amp;';
+            if(m === '<') return '&lt;';
+            if(m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    document.getElementById('btnNuevoLote').addEventListener('click', () => {
+        const codTrab = document.getElementById('codigoTrabajador').value.trim();
+        if(!codTrab) {
+            alert("Ingrese el CODIGO TRABAJADOR antes de crear un nuevo lote.");
+            return;
+        }
+        const observacionesTexto = document.getElementById('observaciones').value.trim();
+        const nuevoId = obtenerNuevoIdLote();
+        const success = guardarRegistro(nuevoId, true, observacionesTexto);
+        if(success) {
+            alert(`Nuevo lote creado con ID: ${nuevoId}. Observación guardada en la primera fila.`);
+            resetFormulario(true);
+            document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
+        }
+    });
+
+    document.getElementById('btnMismoLote').addEventListener('click', () => {
+        const codTrab = document.getElementById('codigoTrabajador').value.trim();
+        if(!codTrab) {
+            alert("Ingrese el CODIGO TRABAJADOR para agregar al mismo lote.");
+            return;
+        }
+        const ultimoLote = obtenerUltimoLotePorTrabajador(codTrab);
+        if(!ultimoLote) {
+            alert(`No existe un lote previo para el trabajador ${codTrab}. Primero cree un nuevo lote con el boton "NUEVO LOTE".`);
+            return;
+        }
+        const success = guardarRegistro(ultimoLote, false, "");
+        if(success) {
+            alert(`Registro agregado al lote existente: ${ultimoLote} (sin observación nueva).`);
+            resetFormulario(false);
+            document.getElementById('codigoTrabajador').value = codTrab;
+            document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
+        }
+    });
+
+    document.getElementById('limpiarBtn').addEventListener('click', () => {
+        resetFormulario(true);
+        document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
+    });
+
+    document.getElementById('exportarCSV').addEventListener('click', () => {
+        if(todosRegistros.length === 0) {
+            alert("No hay registros para exportar.");
+            return;
+        }
+        let csvRows = [["ID_LOTE","COD_TRABAJADOR","FECHA","ZONA","SECTOR","LOTE","AÑO_SIEMBRA","ACTIVIDAD",
+                        "PUNT_COMAL","PUNT_CAJON","PUNT_CARRIL","PUNT_BORDE","PUNT_DRENAJE","PUNT_APILES","PUNTAJE_TOTAL","OBSERVACION"]];
+        for(let r of todosRegistros) {
+            let obsMostrar = (r.esPrimerRegistro === true) ? (r.observacionLote || '') : '';
+            csvRows.push([
+                r.idLote, r.codTrabajador, r.fecha, r.zona, r.sector, r.lote, r.anioSiembra, r.actividad,
+                r.puntajeComal, r.puntajeCajon, r.puntajeCarril, r.puntajeBorde, r.puntajeDrenaje, r.puntajeApiles,
+                r.puntajeTotal, obsMostrar
+            ]);
+        }
+        let csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+        const blob = new Blob(["\uFEFF" + csvContent], {type: "text/csv;charset=utf-8;"});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = "evaluaciones_mantenimiento.csv";
+        link.click();
+        URL.revokeObjectURL(link);
+    });
+
+    document.getElementById('borrarTodo').addEventListener('click', () => {
+        if(confirm("ADVERTENCIA: Esta acción eliminará TODOS los registros de la bitácora. ¿Desea continuar?")) {
+            todosRegistros = [];
+            guardarStorage();
+            renderizarTabla();
+            alert("Todos los registros han sido eliminados.");
+        }
+    });
+
+    const hoy = new Date().toISOString().split('T')[0];
+    document.getElementById('fecha').value = hoy;
+    bindPuntajes();
+    cargarStorage();
+</script>
+</body>
+</html>
